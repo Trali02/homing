@@ -253,7 +253,7 @@ impl Bee {
             positioning_vec += vec.normalized()
         });
         // generate homing vector
-        let final_vec = turning_vec;
+        let final_vec = turning_vec + 3.0*positioning_vec;
         final_vec.normalized()
     }
 }

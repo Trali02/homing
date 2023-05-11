@@ -1,4 +1,4 @@
-use std::{ops::{Range, Sub, Index, Add, AddAssign, Mul}, f32::consts::PI, iter::Sum, process::Output};
+use std::{ops::{Range, Sub, Index, Add, AddAssign, Mul}, f32::consts::PI};
 
 
 /// datastructure for Segments on the image circle
@@ -222,15 +222,20 @@ impl Bee {
         let mut turning_vec = Vec2::<f32>::new(0.0, 0.0);
         matched.iter().for_each(|(snap_segment, ret_segment)| {
             // get angular difference
-            let diff = if snap_segment.dist(*ret_segment) > 0.0 || (ret_segment.width > PI) {
+            let mut diff = if ret_segment.dist(*snap_segment) > 0.0 {
                 -1.0
             } else {
                 1.0
             };
+
+            if  ret_segment.width > PI {
+                diff = -diff;
+            }
+            
             // generate the vector
             let vec = Vec2::<f32>::new(
-                (ret_segment.bisector + PI/2.0).cos() * diff, 
-                (ret_segment.bisector + PI/2.0).sin() * diff,
+                (ret_segment.bisector - PI/2.0).cos() * diff, 
+                (ret_segment.bisector - PI/2.0).sin() * diff,
             );
             // return the vector but normalized
             turning_vec += vec.normalized();
@@ -627,5 +632,22 @@ fn help() {
     let out = bee.home(&world);
 
     println!("{:?}", out);
+}
 
+#[test]
+fn i_dont_know_what_im_doing() {
+    let s1 = Segment {
+        bisector: 0.5,
+        width: 1.0,
+        color: true,
+    };
+    let s2 = Segment {
+        bisector: 0.3,
+        width: 1.0,
+        color: true,
+    };
+
+    let test = s1.dist(s2);
+
+    assert!(test > 0.0)
 }

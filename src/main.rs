@@ -589,7 +589,7 @@ fn main() {
 
     // generating every vector
     let vec_field = VectorField::generate(bee, &world);
-    vec_field.draw("1.png").unwrap();
+    vec_field.draw("homing.png").unwrap();
 }
 
 #[test]

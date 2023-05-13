@@ -1,6 +1,5 @@
 use std::{ops::{Range, Sub, Index, Add, AddAssign, Mul}, f32::consts::PI};
 
-
 /// datastructure for Segments on the image circle
 #[derive(Clone, Copy, PartialEq, PartialOrd, Debug)]
 struct Segment {
@@ -80,12 +79,6 @@ struct World {
 }
 
 // ------------------------------ Boilerplate Implementations -------------------------------//
-
-impl Segment {
-    fn dist(&self, other: Segment) -> f32 {
-        (self.bisector-other.bisector).sin().atan2((self.bisector-other.bisector).cos())
-    }
-}
 
 impl<T> Vec2<T>
 where
@@ -222,10 +215,10 @@ impl Bee {
         let mut turning_vec = Vec2::<f32>::new(0.0, 0.0);
         matched.iter().for_each(|(snap_segment, ret_segment)| {
             // get angular difference
-            let mut diff = if ret_segment.dist(*snap_segment) > 0.0 {
-                -1.0
+            let mut diff = if ret_segment.dist(*snap_segment) < 0.0 {
+                -1.0 // point clockwise
             } else {
-                1.0
+                1.0 // point counter clockwise
             };
 
             if  ret_segment.width > PI {
@@ -244,10 +237,10 @@ impl Bee {
         let mut positioning_vec = Vec2::<f32>::new(0.0, 0.0);
         matched.iter().for_each(|(snap_segment, ret_segment)| {
             // get size difference
-            let diff = if snap_segment.width < ret_segment.width  {
-                1.0
+            let diff = if snap_segment.width > ret_segment.width  {
+                1.0 // point away from the retinal bisector
             } else {
-                -1.0
+                -1.0 // point towards the center of the retina from the bisector
             };
             // generate the vector 
             let vec = Vec2::<f32>::new(
@@ -424,13 +417,16 @@ impl Segment {
     /// returns true if the two segments collide/overlap
     fn collides(&self, other: Segment) -> bool {
         // calculate the distance between both bisectors
-        let arc_dist = self.dist(other);
+        let arc_dist = self.dist(other).abs();
         // if the arc_dist is greater than the sum of the halves of either width there is no intersection/overlap
         if arc_dist > self.width/2.0 + other.width/2.0 {
             false
         } else {
             true
         }
+    }
+    fn dist(&self, other: Segment) -> f32 {
+        (other.bisector-self.bisector).sin().atan2((other.bisector-self.bisector).cos())
     }
 }
 
@@ -441,24 +437,27 @@ impl VectorField {
         // generate the data storage for the vectors
         let mut field = vec![vec![Vec2::<f32>::new(0.0, 0.0);(grid.width.end - grid.width.start) as usize]; (grid.height.end - grid.height.start) as usize];
 
-        for y in (grid.clone()).height {
-            for x in (grid.clone()).width {
+        let mut out = VectorField {
+            grid: grid,
+            vectors: vec![],
+        };
+
+        for y in (out.grid.clone()).height {
+            for x in (out.grid.clone()).width {
                 // calculate indices for storing
-                let index_x = (x - grid.width.start) as usize;
-                let index_y = (y - grid.height.start) as usize;
+                let index = out.index(Vec2::<i32>::new(x,y));
                 // position the bee correctly
                 bee.position = Vec2::<i32>::new(x, y);
                 // generate the homing vector
                 let homing_vector = bee.home(world);
                 // store the homing vector
-                field[index_x][index_y] = homing_vector;
+                field[index[0]][index[1]] = homing_vector;
             }
         }
 
-        VectorField {
-            grid: grid,
-            vectors: field,
-        }
+        out.vectors = field;
+        out
+        
     }
     fn draw(&self, path: &str) -> Result<(), Box<dyn std::error::Error>> {
         use plotters::prelude::*;
@@ -481,20 +480,36 @@ impl VectorField {
                 let x = *x as f32;
                 let y = *y as f32;
                 let new_x = (x * angle.cos()) - (y * angle.sin());
-                let new_y = - ((y * angle.cos()) + (x * angle.sin()));
+                let new_y = -((y * angle.cos()) + (x * angle.sin()));
                 (new_x as i32, new_y as i32)
             }).collect::<Vec<_>>();
             return EmptyElement::at((x, y))
                 + Polygon::new(rotated, ShapeStyle::from(&BLACK).filled());
         };
+
+        root.draw( &Circle::new((3.5, 2.0), 20, ShapeStyle::from(&BLACK).filled()))?;
+        root.draw( &Circle::new((3.5, -2.0), 20, ShapeStyle::from(&BLACK).filled()))?;
+        root.draw( &Circle::new((0.0, -4.0), 20, ShapeStyle::from(&BLACK).filled()))?;
     
-        for (y,e) in self.vectors.iter().enumerate() {
-            for (x,vec) in e.iter().enumerate() {
-                root.draw(&vector(x as f32 + (self.grid.width.start as f32) , y as f32 + (self.grid.width.start as f32) , *vec)).unwrap();
+        for y in (self.grid.clone()).height {
+            for x in (self.grid.clone()).width {
+                let index = self.index(Vec2::<i32>::new(x,y));
+                if x == 0 && y == 0 {
+                    root.draw( &Cross::new((0.0, 0.0), 10, ShapeStyle::from(&BLACK).stroke_width(3))).unwrap();
+                } else {
+                    root.draw(&vector(x as f32, y as f32, self.vectors[index[0]][index[1]])).unwrap();
+                }
             }
         }
         root.present()?;
         Ok(())
+    }
+    fn index(&self, position: Vec2<i32>) -> Vec2<usize> {
+        let height_total = self.grid.height.end - self.grid.height.start;
+        let x = position[0] - self.grid.width.start;
+        let y = height_total - (position[1] - self.grid.height.start) - 1;// has to be reversed
+
+        Vec2::<usize>::new(x as usize, y as usize)
     }
 }
 
@@ -561,6 +576,7 @@ fn image_new_test() {
     };
 
     let obstacles: Vec<Box<dyn Obstacle>> = vec![Box::new(circle1), Box::new(circle2), Box::new(circle3)];
+    //let obstacles: Vec<Box<dyn Obstacle>> = vec![Box::new(circle1)];
 
     let image = Image::new(Vec2::<i32>::new(0,0), &obstacles);
 
@@ -600,7 +616,7 @@ fn segment_collide_test() {
 
 }
 
-// TODO remove this test when everything works as intended
+/// this test will always pass if the program doesnt crash
 #[test] 
 fn help() {
     // constructing the world
@@ -627,10 +643,9 @@ fn help() {
 
     let mut bee = Bee::new(&world, Vec2::<i32>::new(0,0));
 
-    bee.position = Vec2::<i32>::new( 0, 1);
+    bee.position = Vec2::<i32>::new( 5, -5);
 
     let out = bee.home(&world);
-
     println!("{:?}", out);
 }
 
@@ -650,4 +665,42 @@ fn i_dont_know_what_im_doing() {
     let test = s1.dist(s2);
 
     assert!(test > 0.0)
+}
+
+/// this test will always pass if the program doesnt crash
+#[test]
+fn vec_field_test() {
+    let vec_q1 = Vec2::<f32>::new(-1.0, -1.0).normalized();
+    let vec_q2 = Vec2::<f32>::new(1.0, -1.0).normalized();
+    let vec_q3 = Vec2::<f32>::new(1.0, 1.0).normalized();
+    let vec_q4 = Vec2::<f32>::new(-1.0, 1.0).normalized();
+
+    let pos_q1 = Vec2::<i32>::new(7,7);
+    let pos_q2 = Vec2::<i32>::new(-6,6);
+    let pos_q3 = Vec2::<i32>::new(-5,-5);
+    let pos_q4 = Vec2::<i32>::new(4,-4);
+
+    let grid = Grid {
+        width: -7..8,
+        height: -7..8,
+    };
+
+    let field = vec![vec![Vec2::<f32>::new(0.0, 0.0);(grid.width.end - grid.width.start) as usize]; (grid.height.end - grid.height.start) as usize];
+
+    let mut vector_field = VectorField {
+        grid,
+        vectors: field,
+    };
+
+    let index_1 = vector_field.index(pos_q1);
+    let index_2 = vector_field.index(pos_q2);
+    let index_3 = vector_field.index(pos_q3);
+    let index_4 = vector_field.index(pos_q4);
+
+    vector_field.vectors[index_1[0]][index_1[1]] = vec_q1;
+    vector_field.vectors[index_2[0]][index_2[1]] = vec_q2;
+    vector_field.vectors[index_3[0]][index_3[1]] = vec_q3;
+    vector_field.vectors[index_4[0]][index_4[1]] = vec_q4;
+
+    vector_field.draw("test.png").unwrap();
 }

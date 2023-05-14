@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"homing":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.67.1/core/convert/trait.Into.html\" title=\"trait core::convert::Into\">Into</a>&lt;<a class=\"struct\" href=\"homing/struct.Vec2.html\" title=\"struct homing::Vec2\">Vec2</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.67.1/std/primitive.f32.html\">f32</a>&gt;&gt; for <a class=\"struct\" href=\"homing/struct.Vec2.html\" title=\"struct homing::Vec2\">Vec2</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.67.1/std/primitive.i32.html\">i32</a>&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

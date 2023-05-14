@@ -1,0 +1,16 @@
+C:\dev\rust\homing\doc\debug\deps\png-d7ed5bb9e202b93a.rmeta: C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\lib.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\chunk.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\common.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\mod.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\stream.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\zlib.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\encoder.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\filter.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\srgb.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\text_metadata.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\traits.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\utils.rs
+
+C:\dev\rust\homing\doc\debug\deps\png-d7ed5bb9e202b93a.d: C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\lib.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\chunk.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\common.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\mod.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\stream.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\zlib.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\encoder.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\filter.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\srgb.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\text_metadata.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\traits.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\utils.rs
+
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\lib.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\chunk.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\common.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\mod.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\stream.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\decoder\zlib.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\encoder.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\filter.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\srgb.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\text_metadata.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\traits.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\png-0.17.8\src\utils.rs:

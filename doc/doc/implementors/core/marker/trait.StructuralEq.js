@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"homing":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.67.1/core/marker/trait.StructuralEq.html\" title=\"trait core::marker::StructuralEq\">StructuralEq</a> for <a class=\"struct\" href=\"homing/struct.Grid.html\" title=\"struct homing::Grid\">Grid</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

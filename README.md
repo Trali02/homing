@@ -36,6 +36,11 @@ When running the code for the first time, cargo will install and compile the dep
 The final result will look like this:
 ![final homing vector field](homing.png)
 
+the 3 hand made calculations are:
+![](Snapshot_1.png)
+![](Snapshot_2.png)
+![](Snapshot_3.png)
+
 ---
 
 ## Dependencies that were used

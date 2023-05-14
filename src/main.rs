@@ -1,3 +1,4 @@
+
 use std::{
     f32::consts::PI,
     ops::{Add, AddAssign, Index, Mul, Range, Sub},
@@ -70,6 +71,7 @@ struct Grid {
 struct VectorField {
     grid: Grid,
     vectors: Vec<Vec<Vec2<f32>>>,
+    avg_angular_error: f32,
 }
 
 /// World that holds obstacles and the grid the bee is allowed to be on
@@ -164,6 +166,24 @@ impl Mul<Vec2<f32>> for f32 {
 
     fn mul(self, rhs: Vec2<f32>) -> Self::Output {
         Vec2::<f32>::new(self * rhs[0], self * rhs[1])
+    }
+}
+
+trait Distance {
+    fn dist(&self, other: Self) -> f32;
+}
+
+impl Distance for f32 {
+    fn dist(&self, other: Self) -> f32 {
+        (other - self)
+            .sin()
+            .atan2((other - self).cos())
+    }
+}
+
+impl Distance for Segment {
+    fn dist(&self, other: Self) -> f32 {
+        self.bisector.dist(other.bisector)
     }
 }
 
@@ -432,11 +452,6 @@ impl Segment {
             true
         }
     }
-    fn dist(&self, other: Segment) -> f32 {
-        (other.bisector - self.bisector)
-            .sin()
-            .atan2((other.bisector - self.bisector).cos())
-    }
 }
 
 impl VectorField {
@@ -453,7 +468,10 @@ impl VectorField {
         let mut out = VectorField {
             grid: grid,
             vectors: vec![],
+            avg_angular_error: 0.0,
         };
+
+        let num_vecs = (out.grid.width.end - out.grid.width.start) * (out.grid.height.end - out.grid.height.start);
 
         for y in (out.grid.clone()).height {
             for x in (out.grid.clone()).width {
@@ -463,8 +481,21 @@ impl VectorField {
                 bee.position = Vec2::<i32>::new(x, y);
                 // generate the homing vector
                 let homing_vector = bee.home(world);
+
+                // calculate the angular error of the generated vector
+                let correct = Vec2::<f32>::new(0.0,0.0) - bee.position.clone().into();
+                let dot = correct[0] * homing_vector[0] + correct[1] * homing_vector[1];
+                let angle = (dot / (correct.len() * homing_vector.len())).acos();
+
+                // save the average angular error
+                if !angle.is_nan() {
+                    out.avg_angular_error += angle / num_vecs as f32;
+                }
+
                 // store the homing vector
                 field[index[0]][index[1]] = homing_vector;
+
+                
             }
         }
 
@@ -474,8 +505,9 @@ impl VectorField {
     fn draw(&self, path: &str) -> Result<(), Box<dyn std::error::Error>> {
         use plotters::coord::types::RangedCoordf32;
         use plotters::prelude::*;
+        extern crate plotters;
 
-        let root = BitMapBackend::new(path, (640, 640)).into_drawing_area();
+        let root = BitMapBackend::new(path, (640, 740)).into_drawing_area();
 
         root.fill(&RGBColor(240, 240, 240))?;
 
@@ -524,6 +556,12 @@ impl VectorField {
             (0.0, -4.0),
             20,
             ShapeStyle::from(&BLACK).filled(),
+        ))?;
+
+        root.draw(&Text::new(
+            format!("average angular error: {}°",self.avg_angular_error * 180.0 / PI),
+            (-3.0,-8.0), 
+            ("sans-serif", 22.0).into_font()
         ))?;
 
         for y in (self.grid.clone()).height {
@@ -741,6 +779,7 @@ fn vec_field_test() {
     let mut vector_field = VectorField {
         grid,
         vectors: field,
+        avg_angular_error: 0.0
     };
 
     let index_1 = vector_field.index(pos_q1);

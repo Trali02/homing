@@ -1,0 +1,13 @@
+C:\dev\rust\homing\doc\debug\deps\quote-781a91494492e7a4.rmeta: C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\lib.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ext.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\format.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ident_fragment.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\to_tokens.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\runtime.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\spanned.rs
+
+C:\dev\rust\homing\doc\debug\deps\libquote-781a91494492e7a4.rlib: C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\lib.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ext.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\format.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ident_fragment.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\to_tokens.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\runtime.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\spanned.rs
+
+C:\dev\rust\homing\doc\debug\deps\quote-781a91494492e7a4.d: C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\lib.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ext.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\format.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ident_fragment.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\to_tokens.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\runtime.rs C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\spanned.rs
+
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\lib.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ext.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\format.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\ident_fragment.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\to_tokens.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\runtime.rs:
+C:\Users\fredr\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.27\src\spanned.rs:
